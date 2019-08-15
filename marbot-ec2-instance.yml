@@ -49,7 +49,7 @@ Parameters:
     Type: Number
     Default: 80
     MinValue: 0
-    MaxValue: 100
+    MaxValue: 101
   CPUCreditBalanceThreshold:
     Description: 'The minimum number of CPU credits (t2 instances only) available.'
     Type: Number
