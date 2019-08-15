@@ -150,3 +150,6 @@ Outputs:
   StackVersion:
     Description: 'Stack version.'
     Value: '1.1.0'
+  Topic:
+    Description: 'SNS topic.'
+    Value: !Sub '${Topic}'
