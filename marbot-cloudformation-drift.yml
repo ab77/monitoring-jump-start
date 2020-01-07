@@ -362,7 +362,6 @@ Resources:
         Value: !Ref StateMachine
       Statistic: Sum
       Period: 300
-      DatapointsToAlarm: 1
       EvaluationPeriods: 1
       Threshold: 0
       TreatMissingData: notBreaching
@@ -380,7 +379,6 @@ Resources:
         Value: !Ref StateMachine
       Statistic: Sum
       Period: 300
-      DatapointsToAlarm: 1
       EvaluationPeriods: 1
       Threshold: 0
       TreatMissingData: notBreaching
@@ -391,9 +389,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
-      Runtime: 'nodejs8.10'
-      Layers:
-      - !Sub 'arn:aws:lambda:${AWS::Region}:853553028582:layer:monitoring-jump-start:1'
+      Runtime: 'nodejs10.x'
       MemorySize: 128
       Timeout: 30
       Role: !GetAtt 'RoleTrigger.Arn'
@@ -434,13 +430,11 @@ Resources:
     Properties:
       LogGroupName: !Sub '/aws/lambda/${FunctionTrigger}'
       RetentionInDays: 30
-  FunctionFetchDriftStatus:
+  FunctionFetchDriftStatus: # no monitoring needed because function is invoked by StepFunctions
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
-      Runtime: 'nodejs8.10'
-      Layers:
-      - !Sub 'arn:aws:lambda:${AWS::Region}:853553028582:layer:monitoring-jump-start:1'
+      Runtime: 'nodejs10.x'
       MemorySize: 128
       Timeout: 30
       Role: !GetAtt 'RoleFetchDriftStatus.Arn'
@@ -460,13 +454,11 @@ Resources:
     Properties:
       LogGroupName: !Sub '/aws/lambda/${FunctionFetchDriftStatus}'
       RetentionInDays: 30
-  FunctionStartDriftDetection:
+  FunctionStartDriftDetection: # no monitoring needed because function is invoked by StepFunctions
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
-      Runtime: 'nodejs8.10'
-      Layers:
-      - !Sub 'arn:aws:lambda:${AWS::Region}:853553028582:layer:monitoring-jump-start:1'
+      Runtime: 'nodejs10.x'
       MemorySize: 128
       Timeout: 30
       Role: !GetAtt 'RoleStartDriftDetection.Arn'
@@ -484,13 +476,11 @@ Resources:
     Properties:
       LogGroupName: !Sub '/aws/lambda/${FunctionStartDriftDetection}'
       RetentionInDays: 30
-  FunctionFetchDetectionStatus:
+  FunctionFetchDetectionStatus: # no monitoring needed because function is invoked by StepFunctions
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
-      Runtime: 'nodejs8.10'
-      Layers:
-      - !Sub 'arn:aws:lambda:${AWS::Region}:853553028582:layer:monitoring-jump-start:1'
+      Runtime: 'nodejs10.x'
       MemorySize: 128
       Timeout: 30
       Role: !GetAtt 'RoleFetchDetectionStatus.Arn'
@@ -508,13 +498,11 @@ Resources:
     Properties:
       LogGroupName: !Sub '/aws/lambda/${FunctionFetchDetectionStatus}'
       RetentionInDays: 30
-  FunctionSendDriftNotification:
+  FunctionSendDriftNotification: # no monitoring needed because function is invoked by StepFunctions
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
-      Runtime: 'nodejs8.10'
-      Layers:
-      - !Sub 'arn:aws:lambda:${AWS::Region}:853553028582:layer:monitoring-jump-start:1'
+      Runtime: 'nodejs10.x'
       MemorySize: 128
       Timeout: 30
       Role: !GetAtt 'RoleSendDriftNotification.Arn'
@@ -554,4 +542,4 @@ Outputs:
     Value: 'marbot-cloudformation-drift'
   StackVersion:
     Description: 'Stack version.'
-    Value: '1.0.0'
+    Value: '1.1.0'
